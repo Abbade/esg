@@ -86,6 +86,22 @@ const useFetch = () => {
     return request(urlGet, options)
   }, [])
 
+  const postAuth = React.useCallback(async (urlPath : string, body) => {
+    let urlGet = process.env.REACT_APP_API_URL + urlPath;
+    let token = localStorage.getItem('token');
+    let options =  {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "Accept" : "application/json",
+        Authorization: "Bearer " + token,
+      },
+      body: JSON.stringify(body),
+      
+    };
+    return request(urlGet, options)
+  }, [])
+
   const put = React.useCallback(async (urlPath : string, body) => {
     let urlGet = process.env.REACT_APP_API_URL + urlPath;
     let options =  {
@@ -101,6 +117,22 @@ const useFetch = () => {
     return request(urlGet, options)
   }, [])
 
+  const putAuth = React.useCallback(async (urlPath : string, body) => {
+    let urlGet = process.env.REACT_APP_API_URL + urlPath;
+    let token = localStorage.getItem('token');
+    let options =  {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+        "Accept" : "application/json",
+        "Authorization": "Bearer " + token,
+      },
+      body: JSON.stringify(body),
+      
+    };
+    return request(urlGet, options)
+  }, [])
+
   return {
     data,
     loadingApi,
@@ -109,7 +141,9 @@ const useFetch = () => {
     get,
     post,
     put,
-    getAuth
+    getAuth,
+    putAuth,
+    postAuth
   };
 };
 

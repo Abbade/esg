@@ -7,6 +7,7 @@ import { Context } from './context/AuthContext';
 import Layout from './components/Layout';
 import Home from './screens/Home';
 import Dashboard from './screens/Dashboard';
+import Users from './screens/Users';
 
 
 function RequireAuth({ children }: { children: JSX.Element }) {
@@ -33,6 +34,14 @@ export default function RoutesApp() {
             element={
               <RequireAuth>
                 <Dashboard />
+              </RequireAuth>
+            }
+          />
+          <Route
+            path="/users"
+            element={
+              <RequireAuth>
+                <Users />
               </RequireAuth>
             }
           />

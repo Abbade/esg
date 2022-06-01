@@ -140,12 +140,15 @@ export default function EsgForm() {
   };
 
   return (
-    <Box sx={{ maxWidth: 600 }}>
+    <Box sx={{ minWidth : {  md: 600 }, maxWidth: 600 }}>
       <Box
         component="img"
         sx={{
-          height: 300,
-          width: 600,
+          display: 'flex',
+          justifyContent: 'center',
+          margin: 'auto',
+          height: 233,
+          width: 300,
           maxHeight: { xs: 233, md: 400 },
           maxWidth: { xs: 350, md: 800 },
         }}

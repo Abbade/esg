@@ -15,11 +15,15 @@ import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
-import InboxIcon from '@mui/icons-material/MoveToInbox';
-import MailIcon from '@mui/icons-material/Mail';
 import { Outlet} from 'react-router-dom';
 import { Link } from 'react-router-dom';
 import DashboardIcon from '@mui/icons-material/Dashboard';
+import GroupIcon from '@mui/icons-material/Group';
+import { Context } from '../../context/AuthContext';
+import AccountCircle from '@mui/icons-material/AccountCircle';
+import MenuItem from '@mui/material/MenuItem';
+import Menu from '@mui/material/Menu';
+import AssignmentTurnedInIcon from '@mui/icons-material/AssignmentTurnedIn';
 
 const drawerWidth = 240;
 
@@ -78,9 +82,7 @@ const AppBar = styled(MuiAppBar, {
     }),
   }),
 }));
-type Props = {
-    children: React.ReactNode
-}
+
 const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' })(
   ({ theme, open }) => ({
     width: drawerWidth,
@@ -100,7 +102,9 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' 
 
 export default function Layout() {
   const theme = useTheme();
+  const {  handleLogout } = React.useContext(Context)
   const [open, setOpen] = React.useState(false);
+  const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
 
   const handleDrawerOpen = () => {
     setOpen(true);
@@ -109,6 +113,15 @@ export default function Layout() {
   const handleDrawerClose = () => {
     setOpen(false);
   };
+
+  const handleMenu = (event: React.MouseEvent<HTMLElement>) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
+
 
   return (
     <Box sx={{ display: 'flex' }}>
@@ -127,9 +140,38 @@ export default function Layout() {
           >
             <MenuIcon />
           </IconButton>
-          <Typography variant="h6" noWrap component="div">
+          <Typography variant="h6" noWrap component="div" sx={{ flexGrow: 1 }}>
             ESG Feedback Dashboard
           </Typography>
+          <div>
+              <IconButton
+                size="large"
+                aria-label="account of current user"
+                aria-controls="menu-appbar"
+                aria-haspopup="true"
+                onClick={handleMenu}
+                color="inherit"
+              >
+                <AccountCircle />
+              </IconButton>
+              <Menu
+                id="menu-appbar"
+                anchorEl={anchorEl}
+                anchorOrigin={{
+                  vertical: 'top',
+                  horizontal: 'right',
+                }}
+                keepMounted
+                transformOrigin={{
+                  vertical: 'top',
+                  horizontal: 'right',
+                }}
+                open={Boolean(anchorEl)}
+                onClose={handleClose}
+              >
+                <MenuItem onClick={handleLogout}>Log Out</MenuItem>
+              </Menu>
+            </div>
         </Toolbar>
       </AppBar>
       <Drawer variant="permanent" open={open}>
@@ -141,6 +183,7 @@ export default function Layout() {
         <Divider />
         <List>      
           <CustomLink keylink='dashboard' linkstr='/dashboard' name='Dashboard' open={open} icon={<DashboardIcon />}  />
+          <CustomLink keylink='users' linkstr='/users' name='Users' open={open} icon={<GroupIcon />}  />
       
         </List>
         <Divider />
