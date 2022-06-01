@@ -1,4 +1,4 @@
-# - ESG - Feedback
+# ESG - Feedback
 
 ---
 
@@ -22,6 +22,9 @@ After the user (Employee) completes the feedback registration, if he wants to pu
 
 The system administrator will be able to activate others and will also be able, in the future, to control the standard messages that the e-mail sends as soon as the user finishes registering a feedback.
 
+the application contains a google login and also provides a quick integration with any other application
+
+The app has public and private [api](https://github.com/Abbade/esg-api) to help integrate the system
 ---
 
 ## Technologies used
