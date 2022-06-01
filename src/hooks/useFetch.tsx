@@ -1,19 +1,18 @@
-import React from 'react';
-import { Context } from '../context/AuthContext'
+import React from "react";
+import { Context } from "../context/AuthContext";
 
 const useFetch = () => {
   const [data, setData] = React.useState(null);
-  const [error, setError] = React.useState<string>('');
+  const [error, setError] = React.useState<string>("");
   const [loadingApi, setLoadingApi] = React.useState(false);
   const { handleLogout, handleResp } = React.useContext(Context);
- // const { loading, authenticated } = useContext(Context);
+  // const { loading, authenticated } = useContext(Context);
 
   const request = React.useCallback(async (url, options) => {
     let response;
     let json;
     try {
-
-      setError('');
+      setError("");
       setLoadingApi(true);
       response = await fetch(url, options);
       console.log(response);
@@ -21,22 +20,18 @@ const useFetch = () => {
       if (!response.ok) {
         throw new Error(json.message);
       }
-
     } catch (e) {
-
       json = null;
 
-      if(response?.status === 401){
+      if (response?.status === 401) {
         handleLogout();
       }
       console.log(e);
       let message = (e as Error).message;
       setError(message);
-      if(message.length > 0){
-        handleResp('error', message);
+      if (message.length > 0) {
+        handleResp("error", message);
       }
-
-
     } finally {
       setData(json);
       setLoadingApi(false);
@@ -46,92 +41,88 @@ const useFetch = () => {
 
   const get = React.useCallback(async (urlPath) => {
     let urlGet = process.env.REACT_APP_API_URL + urlPath;
-    let options =  {
+    let options = {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
-        "Accept" : "application/json"
-       // Authorization: "Bearer " + token,
+        Accept: "application/json",
+        // Authorization: "Bearer " + token,
       },
     };
-    return request(urlGet, options)
-  }, [])
+    return request(urlGet, options);
+  }, []);
 
-  const getAuth = async (urlPath : string) => {
+  const getAuth = async (urlPath: string) => {
     let urlGet = process.env.REACT_APP_API_URL + urlPath;
-    let token = localStorage.getItem('token');
-    let options =  {
+    let token = localStorage.getItem("token");
+    let options = {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
-        "Accept" : "application/json",
-        "Authorization": "Bearer " + token,
+        Accept: "application/json",
+        Authorization: "Bearer " + token,
       },
     };
-    return request(urlGet, options)
+    return request(urlGet, options);
   };
 
-  const post = React.useCallback(async (urlPath : string, body) => {
+  const post = React.useCallback(async (urlPath: string, body) => {
     let urlGet = process.env.REACT_APP_API_URL + urlPath;
-    let options =  {
+    let options = {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        "Accept" : "application/json"
-       // Authorization: "Bearer " + token,
+        Accept: "application/json",
+        // Authorization: "Bearer " + token,
       },
       body: JSON.stringify(body),
-      
     };
-    return request(urlGet, options)
-  }, [])
+    return request(urlGet, options);
+  }, []);
 
-  const postAuth = React.useCallback(async (urlPath : string, body) => {
+  const postAuth = React.useCallback(async (urlPath: string, body) => {
     let urlGet = process.env.REACT_APP_API_URL + urlPath;
-    let token = localStorage.getItem('token');
-    let options =  {
+    let token = localStorage.getItem("token");
+    let options = {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        "Accept" : "application/json",
+        Accept: "application/json",
         Authorization: "Bearer " + token,
       },
       body: JSON.stringify(body),
-      
     };
-    return request(urlGet, options)
-  }, [])
+    return request(urlGet, options);
+  }, []);
 
-  const put = React.useCallback(async (urlPath : string, body) => {
+  const put = React.useCallback(async (urlPath: string, body) => {
     let urlGet = process.env.REACT_APP_API_URL + urlPath;
-    let options =  {
+    let options = {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
-        "Accept" : "application/json"
-       // Authorization: "Bearer " + token,
+        Accept: "application/json",
+        // Authorization: "Bearer " + token,
       },
       body: JSON.stringify(body),
-      
     };
-    return request(urlGet, options)
-  }, [])
+    return request(urlGet, options);
+  }, []);
 
-  const putAuth = React.useCallback(async (urlPath : string, body) => {
+  const putAuth = React.useCallback(async (urlPath: string, body) => {
     let urlGet = process.env.REACT_APP_API_URL + urlPath;
-    let token = localStorage.getItem('token');
-    let options =  {
+    let token = localStorage.getItem("token");
+    let options = {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
-        "Accept" : "application/json",
-        "Authorization": "Bearer " + token,
+        Accept: "application/json",
+        Authorization: "Bearer " + token,
       },
       body: JSON.stringify(body),
-      
     };
-    return request(urlGet, options)
-  }, [])
+    return request(urlGet, options);
+  }, []);
 
   return {
     data,
@@ -143,7 +134,7 @@ const useFetch = () => {
     put,
     getAuth,
     putAuth,
-    postAuth
+    postAuth,
   };
 };
 

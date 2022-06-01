@@ -1,134 +1,127 @@
-import { useState, useEffect } from 'react';
-import useFetch from './useFetch'
-import {  AlertColor } from '@mui/material/Alert';
-
-
-
+import { useState, useEffect } from "react";
+import useFetch from "./useFetch";
+import { AlertColor } from "@mui/material/Alert";
 
 export default function useAuth() {
   const [authenticated, setAuthenticated] = useState(false);
   const [loading, setLoading] = useState(true);
   const [abrirResp, setAbrirResp] = useState(false);
-  const [msgResp, setMsgResp] = useState('');
-  const [tipoResp, setTipoResp] = useState<AlertColor>('success');
-  const {  error, post } = useFetch();
+  const [msgResp, setMsgResp] = useState("");
+  const [tipoResp, setTipoResp] = useState<AlertColor>("success");
+  const { error, post } = useFetch();
 
-
-
-  useEffect(() => {  
-    const token = localStorage.getItem('token');
+  useEffect(() => {
+    const token = localStorage.getItem("token");
     if (token) {
       setAuthenticated(true);
     }
     setLoading(false);
   }, [authenticated]);
-  
-  async function handleLogin(email : string, password : string) {
-    try {
-      let url = '/user/login';
-      let body = {
-        email : email,
-        passwordSystem: password
-      };
-      const { response, json  } = await post(url, body); 
 
-      if(response !== undefined && response.ok){
-     
-        if(json.success){     
-          localStorage.setItem('token', json.token);
+  async function handleLogin(email: string, password: string) {
+    try {
+      let url = "/user/login";
+      let body = {
+        email: email,
+        passwordSystem: password,
+      };
+      const { response, json } = await post(url, body);
+
+      if (response !== undefined && response.ok) {
+        if (json.success) {
+          localStorage.setItem("token", json.token);
           setAuthenticated(true);
           return true;
-        }
-        else{
+        } else {
           setAuthenticated(false);
-          localStorage.removeItem('token');
+          localStorage.removeItem("token");
           return false;
-        }  
-      }
-      else{
-        if(error !== undefined && error.length > 0){
-          handleResp('error', error)
         }
-        setAuthenticated(false);  
-        localStorage.removeItem('token');
+      } else {
+        if (error !== undefined && error.length > 0) {
+          handleResp("error", error);
+        }
+        setAuthenticated(false);
+        localStorage.removeItem("token");
         return false;
       }
     } catch (error) {
-      throw(error);
+      throw error;
     }
-   
-    
   }
 
-  const handleLoginGoogle = async (googleData : any) => {
+  const handleLoginGoogle = async (googleData: any) => {
     try {
-      let url = '/user/logingoogle';
+      let url = "/user/logingoogle";
       let body = {
-        token : googleData.credential,
+        token: googleData.credential,
       };
-      const { response, json  } = await post(url, body); 
+      const { response, json } = await post(url, body);
 
-      if(response !== undefined && response.ok){
-     
-        if(json.success){     
-          if(json.active){
-            localStorage.setItem('token', json.token);
+      if (response !== undefined && response.ok) {
+        if (json.success) {
+          if (json.active) {
+            localStorage.setItem("token", json.token);
             setAuthenticated(true);
             return true;
-          }
-          else{
-            handleResp('warning', 'User is inactive, contact an Admin to activate')
+          } else {
+            handleResp(
+              "warning",
+              "User is inactive, contact an Admin to activate"
+            );
             setAuthenticated(false);
-            localStorage.removeItem('token');
+            localStorage.removeItem("token");
             return false;
           }
-         
-        }
-        else{
+        } else {
           setAuthenticated(false);
-          localStorage.removeItem('token');
+          localStorage.removeItem("token");
           return false;
-        }  
-      }
-      else{
-        if(error !== undefined && error.length > 0){
-          handleResp('error', error)
         }
-        setAuthenticated(false);  
-        localStorage.removeItem('token');
+      } else {
+        if (error !== undefined && error.length > 0) {
+          handleResp("error", error);
+        }
+        setAuthenticated(false);
+        localStorage.removeItem("token");
         return false;
       }
     } catch (error) {
-      throw(error);
+      throw error;
     }
-   
-    
-  }
+  };
 
   function handleLogout() {
     try {
-     // setAuthenticated(false);
-      localStorage.removeItem('token'); 
-      window.location.href = "/login"  
+      // setAuthenticated(false);
+      localStorage.removeItem("token");
+      window.location.href = "/login";
       return true;
     } catch (error) {
-      console.log(error)
+      console.log(error);
       return false;
     }
-    
-
   }
 
-  function handleResp(tipoResp : AlertColor, msg : string ){
+  function handleResp(tipoResp: AlertColor, msg: string) {
     setMsgResp(msg);
     setTipoResp(tipoResp);
     setAbrirResp(true);
   }
-  function handleCloseResp(){
+  function handleCloseResp() {
     setAbrirResp(false);
   }
 
-
-  
-  return { authenticated, loading, handleLogin, handleLogout, handleResp,   abrirResp,  msgResp, tipoResp, handleCloseResp, handleLoginGoogle  };
+  return {
+    authenticated,
+    loading,
+    handleLogin,
+    handleLogout,
+    handleResp,
+    abrirResp,
+    msgResp,
+    tipoResp,
+    handleCloseResp,
+    handleLoginGoogle,
+  };
 }

@@ -1,46 +1,58 @@
-# Getting Started with Create React App
+# - ESG - Feedback
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+---
 
-## Available Scripts
+## Indice
 
-In the project directory, you can run:
+- [About](#about)
+- [Technologies useds](#Technologies-used)
+- [How to download and run the project](#How-to-download-and-run-the-project)
 
-### `npm start`
+---
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+## About
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+Environmental, social, and governance (ESG) criteria are a set of standards for a company’s behavior used by socially conscious investors to screen potential investments. Environmental criteria consider how a company safeguards the environment, including corporate policies addressing climate change, for example. Social criteria examine how it manages relationships with employees, suppliers, customers, and the communities where it operates. Governance deals with a company’s leadership, executive pay, audits, internal controls, and shareholder rights.
 
-### `npm test`
+Therefore, the application aims at transparency and fast communication and to make the company reach ESG standards as quickly as possible.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+The project is focused on meeting general ESG-related needs by providing feedback and requests between employees and bosses.
 
-### `npm run build`
+After the user (Employee) completes the feedback registration, if he wants to put his e-mail, the system will send an e-mail containing a standard message for each ESG subject
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+The system administrator will be able to activate others and will also be able, in the future, to control the standard messages that the e-mail sends as soon as the user finishes registering a feedback.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+---
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+## Technologies used
 
-### `npm run eject`
+- [react](https://pt-br.reactjs.org/)
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+- [node] (https://nodejs.org/en/)
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+---
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+## How to download and run the project
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
 
-## Learn More
+```bash
+   
+   # Clonar repositório
+   $ git clone https://github.com/Abbade/esg.git
+   # Entrar no diretório
+   $ cd esg
+   
+   # Instalar dependência
+   $ npn install 
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+    # executar aplicativo
+   $ npn start 
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+```
+
+<br>
+<h2 align="center">
+
+<img src="https://img.shields.io/github/license/jessicsous/-teste-Sem_Processo?style=for-the-badge"/>
+
+</h2>

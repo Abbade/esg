@@ -19,7 +19,7 @@ const theme = createTheme();
 
 export default function Login() {
 
-  const { handleLogin, handleLoginGoogle, handleResp } = React.useContext(Context);
+  const { handleLogin, handleLoginGoogle } = React.useContext(Context);
   let navigate = useNavigate();
   
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
@@ -43,10 +43,6 @@ export default function Login() {
     }
    
 }
-const handleFailure = (result : any) => {
-  console.log(result)
-  handleResp('error', 'An error has ocurred');
-};
 
   const login = async (email : string, password : string) => {
     try {
