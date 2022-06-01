@@ -51,10 +51,12 @@ export default function EsgForm() {
   }, []);
 
   const getSelect = async () => {
+
     let esgList = await getTypes();
+
     setListEsg(esgList);
-    let subjectList = await getSubjects(esg.length > 0 ? parseInt(esg) : 0);
-    setListSubject(subjectList);
+    // let subjectList = await getSubjects(esg.length > 0 ? parseInt(esg) : 0);
+    // setListSubject(subjectList);
   };
 
   const handleNext = async () => {
