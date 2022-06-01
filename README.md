@@ -14,7 +14,7 @@
 
 Environmental, social, and governance (ESG) criteria are a set of standards for a company’s behavior used by socially conscious investors to screen potential investments. Environmental criteria consider how a company safeguards the environment, including corporate policies addressing climate change, for example. Social criteria examine how it manages relationships with employees, suppliers, customers, and the communities where it operates. Governance deals with a company’s leadership, executive pay, audits, internal controls, and shareholder rights.
 
-Therefore, the application aims at transparency and fast communication and to make the company reach ESG standards as quickly as possible.
+With this, the application aims at transparency and agility in communication, making the company reach ESG standards as quickly as possible.
 
 The project is focused on meeting general ESG-related needs by providing feedback and requests between employees and bosses.
 
@@ -28,7 +28,7 @@ The system administrator will be able to activate others and will also be able, 
 
 - [react](https://pt-br.reactjs.org/)
 
-- [node] (https://nodejs.org/en/)
+- [node](https://nodejs.org/en/)
 
 ---
 
