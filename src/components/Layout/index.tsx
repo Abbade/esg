@@ -18,6 +18,8 @@ import ListItemText from '@mui/material/ListItemText';
 import InboxIcon from '@mui/icons-material/MoveToInbox';
 import MailIcon from '@mui/icons-material/Mail';
 import { Outlet} from 'react-router-dom';
+import { Link } from 'react-router-dom';
+import DashboardIcon from '@mui/icons-material/Dashboard';
 
 const drawerWidth = 240;
 
@@ -40,6 +42,10 @@ const closedMixin = (theme: Theme): CSSObject => ({
   [theme.breakpoints.up('sm')]: {
     width: `calc(${theme.spacing(8)} + 1px)`,
   },
+});
+const AnchorLink = styled(Link)({
+  textDecoration: "none",
+  color: "inherit"
 });
 
 const DrawerHeader = styled('div')(({ theme }) => ({
@@ -133,53 +139,12 @@ export default function Layout() {
           </IconButton>
         </DrawerHeader>
         <Divider />
-        <List>
-          {['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => (
-            <ListItemButton
-              key={text}
-              sx={{
-                minHeight: 48,
-                justifyContent: open ? 'initial' : 'center',
-                px: 2.5,
-              }}
-            >
-              <ListItemIcon
-                sx={{
-                  minWidth: 0,
-                  mr: open ? 3 : 'auto',
-                  justifyContent: 'center',
-                }}
-              >
-                {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-              </ListItemIcon>
-              <ListItemText primary={text} sx={{ opacity: open ? 1 : 0 }} />
-            </ListItemButton>
-          ))}
+        <List>      
+          <CustomLink keylink='dashboard' linkstr='/dashboard' name='Dashboard' open={open} icon={<DashboardIcon />}  />
+      
         </List>
         <Divider />
-        <List>
-          {['All mail', 'Trash', 'Spam'].map((text, index) => (
-            <ListItemButton
-              key={text}
-              sx={{
-                minHeight: 48,
-                justifyContent: open ? 'initial' : 'center',
-                px: 2.5,
-              }}
-            >
-              <ListItemIcon
-                sx={{
-                  minWidth: 0,
-                  mr: open ? 3 : 'auto',
-                  justifyContent: 'center',
-                }}
-              >
-                {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-              </ListItemIcon>
-              <ListItemText primary={text} sx={{ opacity: open ? 1 : 0 }} />
-            </ListItemButton>
-          ))}
-        </List>
+
       </Drawer>
       <Box component="main" sx={{ flexGrow: 1, p: 1, height: `100vh` }}>
         <DrawerHeader />
@@ -187,4 +152,41 @@ export default function Layout() {
       </Box>
     </Box>
   );
+}
+
+
+export interface ICustomLink{
+  open : boolean;
+  linkstr: string;
+  keylink: string;
+  name: string;
+  icon: JSX.Element;
+}
+
+const CustomLink = ({ keylink, linkstr, name, open, icon} : ICustomLink) => {
+
+  return (
+    <AnchorLink to={linkstr}>
+      <ListItemButton
+          key={keylink}
+          sx={{
+            minHeight: 48,
+            justifyContent: open ? 'initial' : 'center',
+            px: 2.5,
+          }}
+          
+        >
+          <ListItemIcon
+            sx={{
+              minWidth: 0,
+              mr: open ? 3 : 'auto',
+              justifyContent: 'center',
+            }}
+          >
+            {icon}
+          </ListItemIcon>
+          <ListItemText primary={name} sx={{ opacity: open ? 1 : 0 }} />
+      </ListItemButton>
+    </AnchorLink>
+  )
 }

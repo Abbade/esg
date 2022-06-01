@@ -57,6 +57,20 @@ const useFetch = () => {
     return request(urlGet, options)
   }, [])
 
+  const getAuth = async (urlPath : string) => {
+    let urlGet = process.env.REACT_APP_API_URL + urlPath;
+    let token = localStorage.getItem('token');
+    let options =  {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        "Accept" : "application/json",
+        "Authorization": "Bearer " + token,
+      },
+    };
+    return request(urlGet, options)
+  };
+
   const post = React.useCallback(async (urlPath : string, body) => {
     let urlGet = process.env.REACT_APP_API_URL + urlPath;
     let options =  {
@@ -94,7 +108,8 @@ const useFetch = () => {
     request,
     get,
     post,
-    put
+    put,
+    getAuth
   };
 };
 

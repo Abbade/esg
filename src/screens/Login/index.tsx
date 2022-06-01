@@ -14,6 +14,7 @@ import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { useNavigate } from 'react-router-dom';
 import { Context } from '../../context/AuthContext';
+import { GoogleLogin } from '@react-oauth/google';
 
 function Copyright(props: any) {
   return (
@@ -30,9 +31,9 @@ function Copyright(props: any) {
 
 const theme = createTheme();
 
-export default function SignIn() {
+export default function Login() {
 
-  const { handleLogin } = React.useContext(Context);
+  const { handleLogin, handleLoginGoogle, handleResp } = React.useContext(Context);
   let navigate = useNavigate();
   
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
@@ -41,6 +42,25 @@ export default function SignIn() {
     login(data.get('email') as string, data.get('password') as string);
 
   };
+
+  const loginGoogle = async (googleData:  any) => {
+    try {
+      console.log(googleData);
+      let login = await handleLoginGoogle(googleData);
+      console.log(login);
+      if(login){
+        navigate('/dashboard');
+      }
+   
+    } catch (error) {
+      console.log(error);
+    }
+   
+}
+const handleFailure = (result : any) => {
+  console.log(result)
+  handleResp('error', 'An error has ocurred');
+};
 
   const login = async (email : string, password : string) => {
     try {
@@ -107,6 +127,12 @@ export default function SignIn() {
             >
               Sign In
             </Button>
+            <GoogleLogin
+                onSuccess={loginGoogle}
+                onError={() => {
+                  console.log('Login Failed');
+                }}
+/>
             <Grid container>
               <Grid item xs>
                 <Link href="#" variant="body2">

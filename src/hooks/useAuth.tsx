@@ -60,6 +60,51 @@ export default function useAuth() {
     
   }
 
+  const handleLoginGoogle = async (googleData : any) => {
+    try {
+      let url = '/user/logingoogle';
+      let body = {
+        token : googleData.credential,
+      };
+      const { response, json  } = await post(url, body); 
+
+      if(response !== undefined && response.ok){
+     
+        if(json.success){     
+          if(json.active){
+            localStorage.setItem('token', json.token);
+            setAuthenticated(true);
+            return true;
+          }
+          else{
+            handleResp('warning', 'User is inactive, contact an Admin to activate')
+            setAuthenticated(false);
+            localStorage.removeItem('token');
+            return false;
+          }
+         
+        }
+        else{
+          setAuthenticated(false);
+          localStorage.removeItem('token');
+          return false;
+        }  
+      }
+      else{
+        if(error !== undefined && error.length > 0){
+          handleResp('error', error)
+        }
+        setAuthenticated(false);  
+        localStorage.removeItem('token');
+        return false;
+      }
+    } catch (error) {
+      throw(error);
+    }
+   
+    
+  }
+
   function handleLogout() {
     try {
      // setAuthenticated(false);
@@ -85,5 +130,5 @@ export default function useAuth() {
 
 
   
-  return { authenticated, loading, handleLogin, handleLogout, handleResp,   abrirResp,  msgResp, tipoResp, handleCloseResp  };
+  return { authenticated, loading, handleLogin, handleLogout, handleResp,   abrirResp,  msgResp, tipoResp, handleCloseResp, handleLoginGoogle  };
 }

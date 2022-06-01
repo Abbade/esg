@@ -10,5 +10,6 @@ export interface IAuthContext {
     msgResp: string;
     tipoResp: AlertColor;
     handleCloseResp: () => void;
+    handleLoginGoogle: (googleData: any) => Promise<boolean>;
 
   }

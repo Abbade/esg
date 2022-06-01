@@ -6,7 +6,7 @@ import useFetch from './useFetch';
 
 const useEsg = () => {
 
-  const { get, post } = useFetch();
+  const { get, post, getAuth } = useFetch();
 
   const getTypes = async () => {
     let url = '/esg'
@@ -32,7 +32,7 @@ const useEsg = () => {
 
   const getFeedbacks = async () => {
     let url = `/esg/Feedback`;
-    const { response, json  } = await get(url); 
+    const { response, json  } = await getAuth(url); 
     if(response !== undefined && response.ok){
         return json as IFeedbackList[];
     } 
