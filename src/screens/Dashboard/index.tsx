@@ -1,41 +1,49 @@
 import * as React from "react";
 import {
   DataGrid,
-  GridColDef,
-  GridValueGetterParams,
   getGridNumericOperators,
   getGridStringOperators,
   GridActionsCellItem,
-  GridCallbackDetails,
   GridColumns,
-  GridRowId,
   GridRowParams,
-  GridSelectionModel,
 } from "@mui/x-data-grid";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import useEsg from "../../hooks/useEsg";
 import { IFeedbackList } from "../../interfaces/IFeedbackList";
+import FeedbackModal from "../../components/FeedbackModal/indext";
+import Container from '@mui/material/Container';
+const initialValue = {
+  id: 0,
+  description: '',
+  email: '',
+  esg_name: '',
+  subject_name: '',
+} as IFeedbackList;
 
 export default function Dashboard() {
   const [rows, setRows] = React.useState([] as IFeedbackList[]);
   const { getFeedbacks } = useEsg();
+  const [feedbackData, setFeedbackData] = React.useState(initialValue);
+  const [openFeedback, setOpenFeedback] = React.useState(false);
 
   React.useEffect(() => {
-    console.log("render");
+    const get = async () => {
+      let resp = await getFeedbacks();
+      setRows(resp);
+    };
     get();
   }, []);
 
-  const get = async () => {
-    let resp = await getFeedbacks();
-    setRows(resp);
+ 
+
+  const handleClose = () => {
+    setOpenFeedback(false);
   };
 
   const handleDetailClick = React.useCallback(
     (params: GridRowParams) => () => {
-      console.log("clicou pra aperta o  mapaa");
-      console.log(params);
-      let ltLg = `${params.row.latitude},${params.row.longitude}`;
-      window.open(`https://maps.google.com/maps?q=${ltLg}&z=17`, "_blank");
+      setFeedbackData(params.row);
+      setOpenFeedback(true);
     },
     []
   );
@@ -101,13 +109,20 @@ export default function Dashboard() {
     return columnsByRoles;
   }, [handleDetailClick]);
 
+
+
   return (
-    <div style={{ height: 400, width: "100%" }}>
+    <div style={{ height: 'calc(100vh - 90px)', width: "100%" }}>
+      <FeedbackModal 
+        open={openFeedback}
+        data={feedbackData}
+        onClose={handleClose}
+      />
       <DataGrid
         rows={rows}
         columns={columns}
-        pageSize={5}
-        rowsPerPageOptions={[5]}
+        pageSize={25}
+        rowsPerPageOptions={[25]}
         disableSelectionOnClick
       />
     </div>
