@@ -32,8 +32,6 @@ The app has public and private [api](https://github.com/Abbade/esg-api) to help 
 
 - [react](https://pt-br.reactjs.org/)
 
-- [node](https://nodejs.org/en/)
-
 ---
 
 ## How to download and run the project
