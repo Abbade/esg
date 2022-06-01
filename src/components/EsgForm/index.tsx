@@ -147,10 +147,6 @@ export default function EsgForm() {
           display: 'flex',
           justifyContent: 'center',
           margin: 'auto',
-          height: 233,
-          width: 300,
-          maxHeight: { xs: 233, md: 400 },
-          maxWidth: { xs: 350, md: 800 },
         }}
         alt="ESG Logo"
         src={ESG_logo}
