@@ -25,6 +25,7 @@ The system administrator will be able to activate others and will also be able, 
 the application contains a google login and also provides a quick integration with any other application
 
 The app has public and private [api](https://github.com/Abbade/esg-api) to help integrate the system
+
 ---
 
 ## Technologies used
